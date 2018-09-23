@@ -1,0 +1,56 @@
+Drills
+
+
+What was the hottest day in our data set? Where was that?       134 degrees - Zip 94063
+
+SELECT
+	zip,
+	MAX(maxtemperaturef) as max_temp
+FROM
+	weather
+GROUP BY
+	1
+ORDER BY
+	max_temp DESC
+LIMIT
+	1;
+
+
+
+How many trips started at each station?                       
+
+SELECT
+	start_station,
+	COUNT(start_station) as trips
+FROM
+	trips
+GROUP BY
+	start_station;
+
+
+
+What's the shortest trip that happened?                     Trip ID 1011650 - Duration 60
+
+SELECT
+	trip_id,
+	MIN(duration) as duration
+FROM
+	trips
+GROUP BY
+	1
+ORDER BY
+	duration ASC
+LIMIT
+	1;
+
+
+
+What is the average trip duration, by end station?          
+
+SELECT
+	end_station,
+	AVG(duration) as avg_duration	
+FROM
+	trips
+GROUP BY
+	1;
