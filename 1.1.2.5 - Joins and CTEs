@@ -50,4 +50,27 @@ ORDER BY 2 DESC
 
 (Challenge) What's the length of the longest trip for each day it rains anywhere?
 
-
+WITH rainydays
+AS (
+	SELECT DATE(date) rain_date
+	FROM weather
+	WHERE events LIKE 'Rain'
+	GROUP BY 1
+),
+rainytrips AS (
+	SELECT
+		t.trip_id,
+		t.duration,
+		DATE(t.start_date) rainytripdate
+	FROM trips t
+	JOIN rainydays r
+	ON DATE(t.start_date) = r.rain_date
+	ORDER BY duration DESC
+	)
+SELECT
+	rainytripdate,
+	rainytrips.trip_id,
+	MAX(duration) max_duration
+FROM rainytrips
+GROUP BY 1, 2
+ORDER BY max_duration DESC
