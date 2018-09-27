@@ -1,0 +1,34 @@
+What's the most expensive listing? What else can you tell me about the listing?
+
+SELECT 
+	id,
+	price,
+	COUNT(id) as count,
+	AVG(price) as avgprice
+FROM
+	sfo_listings
+ORDER BY 2 DESC
+LIMIT 1
+
+
+What neighborhoods seem to be the most popular?
+
+SELECT
+	neighbourhood,
+	COUNT(neighbourhood) as ncount
+FROM
+	sfo_listings
+GROUP BY 1
+ORDER BY
+	ncount DESC
+LIMIT 3
+
+What time of year is the cheapest time to go to your city? What about the busiest?
+
+SELECT 
+	calender_date,
+	AVG(price) as avgprice
+FROM
+	sfo_calendar
+GROUP BY calender_date
+ORDER BY avgprice
